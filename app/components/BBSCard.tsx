@@ -2,20 +2,30 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import Link from "next/link";
 
 import React from 'react'
+import { BBSData } from "../types/types";
 
-const BBSCard = () => {
+
+interface BBSDataProps {
+    bbsData: BBSData;
+
+}
+
+const BBSCard = ({bbsData}:BBSDataProps) => {
+
+    const { id, title,content,createdAt,username } = bbsData;
+
   return (
     <div>
         <Card className="" >
       <CardHeader>
-        <CardTitle>Create project</CardTitle>
-        <CardDescription>Deploy your new project in one-click.</CardDescription>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>{username}</CardDescription>
       </CardHeader>
       <CardContent>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum doloremque voluptas, impedit voluptates a ab aperiam alias autem libero. Placeat, delectus officiis repellat animi excepturi illum impedit voluptatibus quaerat laboriosam?
+        {content}
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Link href={"/bbs-posts/1"} className=" text-blue-500">Read More</Link>
+        <Link href={`/bbs-posts/${id}`} className=" text-blue-500">Read More</Link>
       </CardFooter>
     </Card>
     </div>
