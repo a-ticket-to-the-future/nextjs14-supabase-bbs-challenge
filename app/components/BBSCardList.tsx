@@ -28,3 +28,5 @@ const BBSCardList = ({bbsAllData}:BBSAllDataProps) => {
 }
 
 export default BBSCardList
+
+// keyの設定について

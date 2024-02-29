@@ -23,3 +23,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+//　どのページにも表示させたいコンポーネントを{children}の前後へ
