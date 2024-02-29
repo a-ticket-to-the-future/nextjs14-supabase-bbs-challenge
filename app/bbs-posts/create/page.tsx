@@ -9,10 +9,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from 'zod'
 import { Textarea } from '@/components/ui/textarea'
 import { useRouter } from 'next/navigation'
+import { postBBS } from '@/app/actions/postBBSAction'
 
 //　本当はファイルを分けた方が良いらしいが動画の人はとりあえずここに書くと言っていた
 
-const formSchema = z.object({
+export const formSchema = z.object({
     username: z.string().min(2, { message:"ユーザー名は2文字以上で入力して下さい"}),
     title: z.string().min(2, { message:"タイトルは2文字以上で入力して下さい"}),
     content: z.string().min(10, { message:"本文は10文字以上で入力して下さい"}).max(140, {message:"本文は140文字以内で入力して下さい"}),
@@ -38,21 +39,26 @@ const CreateBBSPage = () => {
 
 
         const { username, title, content } = value
-        try{
-            await fetch("http://localhost:3000/api/post",{
-                method:"POST",
-                headers: {
-                    "Content-Type":"application/json",
-                },
-                body: JSON.stringify({username,title,content}),
-                //ここの三つに出るエラーに対して,
-                //onSubmit = async ()の()内にvalue:z.infer<typeof formSchema>、その後に分割代入
+        // try{
+        //     await fetch("http://localhost:3000/api/post",{
+        //         method:"POST",
+        //         headers: {
+        //             "Content-Type":"application/json",
+        //         },
+        //         body: JSON.stringify({username,title,content}),
+        //         //ここの三つに出るエラーに対して,
+        //         //onSubmit = async ()の()内にvalue:z.infer<typeof formSchema>、その後に分割代入
                 
-            });
-            router.push("/");
-        } catch (error) {
-            console.error(error);
-        }
+        //     });
+        //     router.push("/");
+        //     router.refresh();
+        // } catch (error) {
+        //     console.error(error);
+        // }
+
+        //nextjs14.ver記述
+        postBBS({username,title,content})
+
     }
 
   return (
